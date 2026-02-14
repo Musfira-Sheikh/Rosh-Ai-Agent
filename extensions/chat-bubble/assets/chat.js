@@ -481,7 +481,7 @@
             prompt_type: promptType
           });
 
-          const streamUrl = 'https://localhost:3458/chat';
+          const streamUrl = 'https://rosh-ai-agent.vercel.app/chat';
           const shopId = window.shopId;
 
           const response = await fetch(streamUrl, {
@@ -551,6 +551,7 @@
             }
             break;
 
+
           case 'chunk':
             ShopAIChat.UI.removeTypingIndicator();
             currentMessageElement.dataset.rawText += data.chunk;
@@ -572,9 +573,7 @@
             console.error('Stream error:', data.error);
             ShopAIChat.UI.removeTypingIndicator();
             currentMessageElement.textContent = "Sorry, I couldn't process your request. Please try again later.";
-            break;
-
-          case 'rate_limit_exceeded':
+                   case 'rate_limit_exceeded':
             console.error('Rate limit exceeded:', data.error);
             ShopAIChat.UI.removeTypingIndicator();
             currentMessageElement.textContent = "Sorry, our servers are currently busy. Please try again later.";
@@ -597,7 +596,9 @@
 
           case 'new_message':
             ShopAIChat.Formatting.formatMessageContent(currentMessageElement);
-            ShopAIChat.UI.showTypingIndicator();
+            
+            
+            hopAIChat.UI.showTypingIndicator();
 
             // Create new message element for the next response
             const newMessageElement = document.createElement('div');
@@ -630,7 +631,7 @@
           messagesContainer.appendChild(loadingMessage);
 
           // Fetch history from the server
-          const historyUrl = `https://localhost:3458/chat?history=true&conversation_id=${encodeURIComponent(conversationId)}`;
+          const historyUrl = `https://rosh-ai-agent.vercel.app/chat?history=true&conversation_id=${encodeURIComponent(conversationId)}`;
           console.log('Fetching history from:', historyUrl);
 
           const response = await fetch(historyUrl, {
@@ -779,7 +780,7 @@
           attemptCount++;
 
           try {
-            const tokenUrl = 'https://localhost:3458/auth/token-status?conversation_id=' +
+            const tokenUrl = 'https://rosh-ai-agent.vercel.app/auth/token-status?conversation_id=' +
               encodeURIComponent(conversationId);
             const response = await fetch(tokenUrl);
 
